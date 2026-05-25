@@ -1,0 +1,242 @@
+.categories {
+    
+      .ctHdr {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        
+        .ctTitle {
+            font-size: 3rem;
+            line-height: 3.6rem;
+            font-weight: 600;
+            color: var(--text);
+            letter-spacing: 0.04rem;
+        }
+        
+        .ctDesc {
+            font-size: 1.6rem;
+            font-weight: 400;
+            line-height: 2.4rem;
+            color: var(--gray);
+        }
+        
+        .button {
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-size: 1.6rem;
+            font-weight: 500;
+            line-height: 2.4rem;
+            padding: 0.8rem 1.55rem;
+            border-radius: 1rem;
+            border: .1rem solid var(--theme);
+            background: var(--theme);
+            transition: all .3s ease;
+            span {
+                font-size: 2.2rem;
+            }
+            
+            &:hover {
+                background: transparent;
+                color: var(--theme);
+            }
+        }
+        }
+}
+
+
+.gridContainer {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2.4rem;
+  width: 100%;
+  margin-top: 2.4rem;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+.card {
+  background-color: #ffffff;
+  border: 0.07rem solid #0000001A;
+  border-radius: 1.4rem;
+  padding: 2.4rem;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1), 0px 1px 2px -1px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+
+  .cardTop {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    
+    .percentage {
+      font-size: 2.4rem;
+      line-height: 3.2rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+  }
+  
+  .iconCircle {
+    width: 4.8rem;
+    height: 4.8rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    font-size: 2.4rem;
+  }
+}
+
+
+.cardMain {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin-bottom: 1.6rem;
+}
+
+.title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 2.8rem;
+  margin: 0;
+}
+
+.count {
+    font-weight: 400;
+  font-size: 1.4rem;
+  line-height: 2rem;
+  color: var(--gray);
+  margin: 0;
+}
+
+.amount {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 2.8rem;
+}
+
+.progressBarBg {
+  width: 100%;
+  height: 0.6rem;
+  background-color: #f3f4f6;
+  border-radius: 99.9rem;
+  overflow: hidden;
+  margin-top: auto;
+}
+
+.progressBarFill {
+  height: 100%;
+  border-radius: 99.9rem;
+  transition: width 0.3s ease;
+}
+
+.container {
+  margin-top: 2.4rem;
+  width: 100%;
+  background-color: #ffffff;
+  border: 0.1rem solid #e5e7eb;
+  border-radius: 1.6rem;
+  padding: 2.4rem;
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, sans-serif;
+  
+  .headerTitle {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #111827;
+    margin: 0 0 2.4rem 0;
+  }
+  
+  .list {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  
+  .row {
+    display: flex;
+    align-items: center;
+    gap: 1.6rem;
+    width: 100%;
+  }
+  
+  .iconCircle {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    font-size: 1.8rem;
+    flex-shrink: 0;
+  }
+  
+  .content {
+    display: flex;
+    flex-direction: column;
+    gap: .4rem;
+    width: 100%;
+    /* flex: 1; */
+    
+  }
+  
+  .topInfo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .title {
+    font-size: 1.4rem;
+    line-height: 2rem;
+    font-weight: 500;
+    color: var(--text);
+  }
+  
+  .amount {
+    font-size: 1.4rem;
+    font-weight: 700;
+    line-height: 2rem;
+    color: var(--text);
+  }
+  
+  .progressContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.6rem;
+    width: 100%;
+  }
+  
+  .progressBarBg {
+    flex: 1;
+    height: 0.6rem;
+    background-color: #f3f4f6;
+    border-radius: 99.9rem;
+    overflow: hidden;
+  }
+  
+  .progressBarFill {
+    height: 100%;
+    border-radius: 99.9rem;
+    transition: width 0.3s ease;
+  }
+  
+  .percentage {
+    font-size: 1.4rem;
+    color: var(--gray);
+    line-height: 2rem;
+    font-weight: 400;
+  }
+
+}

@@ -1,0 +1,170 @@
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4); /* Orqa fonni xiralashtirish */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  background-color: #ffffff;
+  width: 100%;
+  max-width: 440.8px;
+  border-radius: 1.6rem;
+  padding: 2.4rem;
+  box-sizing: border-box;
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.15);
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4rem;
+  
+}
+
+.modalHeader h3 {
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 2.8rem;
+  color: #000000;
+  margin: 0;
+}
+
+.closeBtn {
+  background: none;
+  border: none;
+  color: #6b7280;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.4rem;
+  transition: color 0.2s;
+}
+
+.closeBtn:hover {
+  color: #000000;
+}
+
+.modalBody {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  margin-bottom: 2.4rem;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.inputGroup label {
+  font-size: 1.4rem;
+  font-weight: 500;
+  line-height: 2rem;
+  color: var(--text);
+}
+
+.inputGroup input, .inputGroup select {
+  width: 100%;
+  padding: 1.2rem 1.6rem;
+  font-size: 1.6rem;
+  border: 0.07rem solid #0000001A;
+  border-radius: 1rem;
+  background-color: #F3F3F5;
+  outline: none;
+  box-sizing: border-box;
+  color: var(--text);
+  appearance: none;
+}
+
+/* Select uchun kichkina oq chiziqli o'qcha (rasmdagidek) */
+.inputGroup select {
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 1.6rem center;
+  background-size: 1.6rem;
+  cursor: pointer;
+}
+
+.inputGroup input::placeholder {
+  color: #9ca3af;
+}
+
+/* Xarajat va Daromad selectori */
+.typeSelector {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem;
+}
+
+.typeBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  padding: 1.2rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  background-color: #ffffff;
+  border: 0.1rem solid #e5e7eb;
+  border-radius: 1rem;
+  cursor: pointer;
+  color: #374151;
+  transition: all 0.2s ease;
+}
+
+/* Xarajat tanlanganda (aktiv qizil holati) */
+.activeExpense {
+  border-color: #ef4444 !important;
+  color: #ef4444 !important;
+  background-color: #fef2f2;
+}
+
+/* Daromad tanlanganda (aktiv yashil holati) */
+.activeIncome {
+  border-color: #10b981 !important;
+  color: #10b981 !important;
+  background-color: #ecfdf5;
+}
+
+.modalActions {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 1.2rem;
+}
+
+.cancelBtn {
+  background-color: #ffffff;
+  border: 0.1rem solid #e5e7eb;
+  color: #000000;
+  padding: 1.4rem;
+  border-radius: 1rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.submitBtn {
+  background-color: #09090b;
+  border: none;
+  color: #ffffff;
+  padding: 1.4rem;
+  border-radius: 1rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.cancelBtn:hover, .submitBtn:hover, .typeBtn:hover {
+  opacity: 0.9;
+}

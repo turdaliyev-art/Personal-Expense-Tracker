@@ -1,0 +1,180 @@
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #00000080;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  
+    .modalContent {
+        background-color: #ffffff;
+        width: 100%;
+        max-width: 440.8px;
+        border-radius: 1.4rem;
+        padding: 2.4rem;
+        box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.1);
+        font-family: system-ui, -apple-system, sans-serif;
+    }
+
+    .modalHeader {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2.4rem;
+    }
+
+    .modalHeader h3 {
+        font-size: 2rem;
+        font-weight: 600;
+        line-height: 2.8rem;
+        color: var(--text);
+        margin: 0;
+    }
+
+    .closeBtn {
+        background: none;
+        border: none;
+        font-size: 2rem;
+        color: #000000;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.4rem;
+    }
+
+    .inputGroup {
+        display: flex;
+        flex-direction: column;
+        gap: 0.8rem;
+        margin-top: 4.8rem;
+    }
+
+    .inputGroup label, .sectionLabel {
+        font-size: 1.4rem;
+        font-weight: 500;
+        color: var(--text);
+        line-height: 2rem;
+    }
+
+    .inputGroup input {
+        width: 100%;
+        padding: 1.2rem 1.6rem;
+        font-size: 1.5rem;
+        border: 0.1rem solid #e5e7eb;
+        border-radius: 1rem;
+        background-color: #f9fafb;
+        outline: none;
+        box-sizing: border-box;
+        color: #111827;
+    }
+
+    .inputGroup input::placeholder {
+        color: #9ca3af;
+    }
+
+    .section {
+        margin-top: 1.6rem;
+    }
+
+    .iconGrid {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        gap: 0.8rem;
+        margin-top: 0.8rem;
+    }
+
+    .iconItem {
+        height: 4.4rem;
+        background-color: #ffffff;
+        border: 0.1rem solid #e5e7eb;
+        border-radius: 1rem;
+        font-size: 2rem;
+        color: var(--text);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s ease;
+    }
+
+    .activeIcon {
+        border-color: #000000;
+        background-color: #0302131A;
+        color: var(--text);
+        border-width: 0.2rem;
+    }
+
+    .colorGrid {
+        display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1rem;
+    margin-top: 1.6rem;
+    }
+
+    .colorItem {
+        height: 3.2rem;
+        border: none;
+        border-radius: 0.8rem;
+        cursor: pointer;
+        transition: transform 0.15s ease;
+        position: relative;
+    }
+
+    .activeColor {
+    transform: scale(1.05);
+    box-shadow: 0 0 0 0.2rem #ffffff, 0 0 0 0.4rem #000000;
+    }
+
+    .modalActions {
+        display: grid;
+        grid-template-columns: 1fr 1.2fr;
+        gap: 1.2rem;
+        margin-top: 3.2rem;
+    
+        button {
+            background-color: #ffffff;
+            border: 0.1rem solid #0000001A;
+            color: var(--text);
+            padding: .8rem;
+            border-radius: 1rem;
+            font-size: 1.6rem;
+            font-weight: 500;
+            line-height: 2.4rem;
+            cursor: pointer;
+        
+
+            &:first-child {
+                &:hover {
+                    background-color: #d0d0d0d5;
+                }
+            }
+
+            &:last-child {
+                color: #ffffff;
+                background-color: var(--theme);
+
+                &:hover {
+                     background-color: #ffffff;
+                     color: var(--theme);
+                    border: 0.1rem solid var(--theme);
+                    transition: all .3s ease;
+
+                }
+            }
+        }
+        
+  
+    }
+
+    .cancelBtn:hover, .submitBtn:hover {
+    opacity: 0.9;
+    }
+}
+
+
+
