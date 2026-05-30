@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { FiWifiOff } from 'react-icons/fi';
-import styles from './NetworkErr.module.css';
+// import styles from './NetworkErr.module.css';
+import styles from "./Network.module.css"
 
 const NetworkErr = () => {
   
