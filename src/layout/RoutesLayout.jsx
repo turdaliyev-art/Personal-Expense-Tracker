@@ -1,7 +1,7 @@
 import styles from './RoutesLayout.module.css'
 import Aside from '../components/aside/Aside'
 import { Outlet } from 'react-router-dom'
-import NetworkErr from '../components/modals/networkErr'
+import NetworkErr from '../components/modals/NetworkErr'
 
 
 const RoutesLayout = () => {
