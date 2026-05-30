@@ -1,107 +1,92 @@
-import styles from "./Transaction.module.css"
+import React, { useState, useEffect, useMemo, useCallback } from "react";
+import styles from "./Transaction.module.css";
 import { FiArrowDownRight, FiArrowUpRight, FiCalendar, FiSearch } from 'react-icons/fi'; 
 import { RiDeleteBin6Line } from "react-icons/ri";
-import { FiEdit2 } from "react-icons/fi";
-import { GrEdit } from "react-icons/gr";
+import { GrEdit as GrEditIcon } from "react-icons/gr"; 
 import TransactionModal from "../../components/modals/TransactionModal";
-import { useState } from "react";
-
+import DelConfirmModal from "../../components/modals/DelConfirm"; 
+import { subscribeToTransactions, deleteTransactionDoc } from "../../services/financeService";
 
 const Transaction = () => {
-    const [isModalOpen, setIsModalOpen] = useState(false);
-  
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isDelModalOpen, setIsDelModalOpen] = useState(false); 
+  const [activeFilter, setActiveFilter] = useState("all"); 
+  const [searchQuery, setSearchQuery] = useState("");
+  const [editingTransaction, setEditingTransaction] = useState(null); 
+  const [selectedId, setSelectedId] = useState(null); 
+  const [transactions, setTransactions] = useState(null); 
 
-  const transactions = [
-    { id: 1, title: 'Supermarket', category: "Ovqat", amount: -45000, date: '2026-05-15', type: 'expense' },
-    { id: 2, title: 'Ish haqi', category: "Daromad", amount: 5000000, date: '2026-05-14', type: 'income' },
-    { id: 3, title: 'Transport', category: "Transport", amount: -25000, date: '2026-05-14', type: 'expense' },
-    { id: 4, title: 'Kafe', category: "Ovqat", amount: -60000, date: '2026-05-13', type: 'expense' },
-    { id: 5, title: 'Kommunal', category: "To'lovlar", amount: -350000, date: '2026-05-12', type: 'expense' },
-    { id: 6, title: 'Supermarket', category: "Ovqat", amount: -45000, date: '2026-05-15', type: 'expense' },
-    { id: 7, title: 'Ish haqi', category: "Daromad", amount: 5000000, date: '2026-05-14', type: 'income' },
-    { id: 8, title: 'Transport', category: "Transport", amount: -25000, date: '2026-05-14', type: 'expense' },
-    { id: 9, title: 'Kafe', category: "Ovqat", amount: -60000, date: '2026-05-13', type: 'expense' },
-    { id: 10, title: 'Kommunal', category: "To'lovlar", amount: -350000, date: '2026-05-12', type: 'expense' },
-  ];
+  useEffect(() => {
+    return subscribeToTransactions(setTransactions);
+  }, []);
 
-    const formatAmount = (num) => {
-    const formatted = Math.abs(num).toLocaleString('uz-UZ') + " so'm";
-    return num > 0 ? `+${formatted}` : `-${formatted}`;
+  const openDelete = useCallback((id) => { setSelectedId(id); setIsDelModalOpen(true); }, []);
+  const openEdit = useCallback((item) => { setEditingTransaction(item); setIsModalOpen(true); }, []);
+
+  const handleConfirmDelete = async () => {
+    if (selectedId) {
+      await deleteTransactionDoc(selectedId);
+      setIsDelModalOpen(false);
+      setSelectedId(null);
+    }
   };
+
+  // Filtr va Qidiruv amallarini keshlashtirish
+  const filteredTransactions = useMemo(() => {
+    if (!transactions) return [];
+    return transactions.filter(item => {
+      const matchType = activeFilter === "all" || item.type === activeFilter;
+      const matchSearch = item.title?.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                          item.category?.toLowerCase().includes(searchQuery.toLowerCase());
+      return matchType && matchSearch;
+    });
+  }, [transactions, activeFilter, searchQuery]);
 
   return (
     <div className={styles.transaction}>
       <div className={styles.trHdr}>
-        <div>
-          <p className={styles.trTitle}>Tranzaksiyalar</p>
-          <p className={styles.trDesc}>Barcha xarajat va daromadlar</p>
-        </div>
-        <button onClick={() => setIsModalOpen(true)}><span>+</span>Yangi tranzaksiya</button>
+        <div><p className={styles.trTitle}>Tranzaksiyalar</p><p className={styles.trDesc}>Barcha o'tkazmalar</p></div>
+        <button onClick={() => { setEditingTransaction(null); setIsModalOpen(true); }}><span>+</span>Yangi tranzaksiya</button>
       </div>
 
-      {/* <TransactionModal/> */}
-     <TransactionModal isOpen={isModalOpen} 
-        onClose={() => setIsModalOpen(false)}/>
+      <TransactionModal isOpen={isModalOpen} onClose={() => { setIsModalOpen(false); setEditingTransaction(null); }} editingTransaction={editingTransaction} />
+      <DelConfirmModal isOpen={isDelModalOpen} onClose={() => { setIsDelModalOpen(false); setSelectedId(null); }} onConfirm={handleConfirmDelete} title="O'chirish" description="Tranzaksiyani o'chirasizmi?" />
+
       <div className={styles.trListContainer}>
-            <div className={styles.catHdr}>
-              <div className={styles.search}>
-                <FiSearch className={styles.searchIc}/><input type="text" placeholder='Qidirish...'/>
-              </div>
-
-            <div className={styles.filterButtons}>
-                <button
-                  // className={`${styles.filterBtn} ${activeFilter === 'all' ? styles.active : ''}`}
-                  // onClick={() => handleFilter('all')}
-                >
-                  Barchasi
-                </button>
-                <button
-                  // className={`${styles.filterBtn} ${activeFilter === 'income' ? styles.active : ''}`}
-                  // onClick={() => handleFilter('income')}
-                >
-                  Daromad
-                </button>
-                <button
-                  // className={`${styles.filterBtn} ${activeFilter === 'expense' ? styles.active : ''}`}
-                  // onClick={() => handleFilter('expense')}
-                >
-                  Xarajat
-                </button>
-            </div>
+        <div className={styles.catHdr}>
+          <div className={styles.search}><FiSearch className={styles.searchIc}/><input type="text" placeholder='Qidirish...' value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)}/></div>
+          <div className={styles.filterButtons}>
+            {['all', 'income', 'expense'].map(f => (
+              <button key={f} className={activeFilter === f ? styles.active : ''} onClick={() => setActiveFilter(f)}>
+                {f === 'all' ? 'Barchasi' : f === 'income' ? 'Daromad' : 'Xarajat'}
+              </button>
+            ))}
           </div>
-        <div className={styles.transactionList}>
+        </div>
 
-          {transactions.map((item) => (
+        <div className={styles.transactionList}>
+          {transactions === null && <p className={styles.noData}>Yuklanmoqda...</p>}
+          {transactions && filteredTransactions.length === 0 && <h2 className={styles.noData}>Tranzaksiya topilmadi!</h2>}
+
+          {filteredTransactions.map(item => (
             <div key={item.id} className={styles.transactionItem}>
               <div className={styles.itemLeft}>
-              
-                <div className={`${styles.iconCircle} ${styles[item.type]}`}>
-                  {item.type === 'income' ? <FiArrowDownRight/> : <FiArrowUpRight/>}
-                </div>
-                <div>
-                  <p className={styles.title}>{item.title}</p>
-                  <p>{item.category}<span>• <FiCalendar/> {item.date}</span></p>
-                </div>
+                <div className={`${styles.iconCircle} ${styles[item.type]}`}>{item.type === 'income' ? <FiArrowDownRight/> : <FiArrowUpRight/>}</div>
+                <div><p className={styles.title}>{item.title}</p><p>{item.category} <span>• <FiCalendar/> {item.date}</span></p></div>
               </div>
               <div className={styles.itemRight}>
-                <span className={`${styles.amount} ${styles[item.type]}`}>
-                  {formatAmount(item.amount)}
-                </span>
+                <span className={`${styles.amount} ${styles[item.type]}`}>{item.amount > 0 ? '+' : '-'}{Math.abs(item.amount).toLocaleString()} so'm</span>
                 <div className={styles.catActions}>
-                  <button><GrEdit/></button>
-                  <button><RiDeleteBin6Line/></button>
+                  <button onClick={() => openEdit(item)}><GrEditIcon/></button>
+                  <button onClick={() => openDelete(item.id)}><RiDeleteBin6Line/></button>
                 </div>
-
               </div>
             </div>
           ))}
         </div>
       </div>
-
-            
-            
     </div>
-  )
-}
+  );
+};
 
-export default Transaction
+export default Transaction;

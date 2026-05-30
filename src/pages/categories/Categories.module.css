@@ -1,50 +1,50 @@
 .categories {
-    
-      .ctHdr {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        
-        .ctTitle {
-            font-size: 3rem;
-            line-height: 3.6rem;
-            font-weight: 600;
-            color: var(--text);
-            letter-spacing: 0.04rem;
-        }
-        
-        .ctDesc {
-            font-size: 1.6rem;
-            font-weight: 400;
-            line-height: 2.4rem;
-            color: var(--gray);
-        }
-        
-        .button {
-            color: #fff;
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            font-size: 1.6rem;
-            font-weight: 500;
-            line-height: 2.4rem;
-            padding: 0.8rem 1.55rem;
-            border-radius: 1rem;
-            border: .1rem solid var(--theme);
-            background: var(--theme);
-            transition: all .3s ease;
-            span {
-                font-size: 2.2rem;
-            }
-            
-            &:hover {
-                background: transparent;
-                color: var(--theme);
-            }
-        }
-        }
-}
+  .ctHdr {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
+    .ctTitle {
+      font-size: 3rem;
+      line-height: 3.6rem;
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: 0.04rem;
+    }
+
+    .ctDesc {
+      font-size: 1.6rem;
+      font-weight: 400;
+      line-height: 2.4rem;
+      color: var(--gray);
+    }
+
+    .button {
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      font-size: 1.6rem;
+      font-weight: 500;
+      line-height: 2.4rem;
+      padding: 0.8rem 1.55rem;
+      border-radius: 1rem;
+      border: .1rem solid var(--theme);
+      background: var(--theme);
+      transition: all .3s ease;
+      cursor: pointer;
+
+      span {
+        font-size: 2.2rem;
+      }
+
+      &:hover {
+        background: transparent;
+        color: var(--theme);
+      }
+    }
+  }
+}
 
 .gridContainer {
   display: grid;
@@ -66,6 +66,20 @@
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
+  position: relative; /* Tugmalarni burchakka joylash uchun shart */
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-0.2rem);
+    box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.05);
+
+    /* Hover bo'lganda overlay (tugmalar paneli) ko'rinishi */
+    .actionsOverlay {
+      opacity: 1;
+      pointer-events: auto;
+    }
+  }
 
   .cardTop {
     display: flex;
@@ -93,6 +107,52 @@
   }
 }
 
+/* Card yuqori o'ng burchagida tugmalarni jamlovchi panel */
+.actionsOverlay {
+  position: absolute;
+  top: 1.2rem;
+  right: 1.2rem;
+  display: flex;
+  gap: 0.6rem;
+  opacity: 0; /* Oddiy holatda yashirin */
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  z-index: 10;
+}
+
+/* Edit va Delete umumiy tugma stillari */
+.editBtn, .deleteBtn {
+  background: #ffffff;
+  border: 0.1rem solid #e5e7eb;
+  border-radius: 0.8rem;
+  width: 3.2rem;
+  height: 3.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.4rem;
+  box-shadow: 0 0.2rem 0.4rem rgba(0, 0, 0, 0.05);
+  transition: all 0.15s ease;
+}
+
+.editBtn {
+  color: #4b5563;
+  &:hover {
+    background: #f3f4f6;
+    color: #000000;
+    border-color: #d1d5db;
+  }
+}
+
+.deleteBtn {
+  color: #ef4444;
+  &:hover {
+    background: #fef2f2;
+    border-color: #fca5a5;
+    color: #dc2626;
+  }
+}
 
 .cardMain {
   display: flex;
@@ -110,7 +170,7 @@
 }
 
 .count {
-    font-weight: 400;
+  font-weight: 400;
   font-size: 1.4rem;
   line-height: 2rem;
   color: var(--gray);
@@ -126,7 +186,7 @@
 
 .progressBarBg {
   width: 100%;
-  height: 0.6rem;
+  height: 0.8rem;
   background-color: #f3f4f6;
   border-radius: 99.9rem;
   overflow: hidden;
@@ -170,14 +230,14 @@
   }
   
   .iconCircle {
-    width: 4rem;
-    height: 4rem;
+    width: 3.2rem;
+    height: 3.2rem;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     color: #ffffff;
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     flex-shrink: 0;
   }
   
@@ -186,8 +246,6 @@
     flex-direction: column;
     gap: .4rem;
     width: 100%;
-    /* flex: 1; */
-    
   }
   
   .topInfo {
@@ -220,7 +278,7 @@
   
   .progressBarBg {
     flex: 1;
-    height: 0.6rem;
+    height: 0.8rem;
     background-color: #f3f4f6;
     border-radius: 99.9rem;
     overflow: hidden;
@@ -238,5 +296,4 @@
     line-height: 2rem;
     font-weight: 400;
   }
-
 }

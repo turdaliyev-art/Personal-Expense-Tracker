@@ -1,92 +1,132 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './TransactionModal.module.css';
+import { db, auth } from "../../firebase/firebaseConfig";
+import { collection, addDoc, doc, updateDoc, serverTimestamp } from "firebase/firestore";
+import { FiArrowDownRight, FiArrowUpRight } from 'react-icons/fi';
 
-function TransactionModal({ isOpen, onClose }) {
-  const [type, setType] = useState('expense'); // 'expense' yoki 'income'
+const initialForm = { title: '', amount: '', category: '', date: new Date().toISOString().split('T')[0], type: 'expense' };
+
+function TransactionModal({ isOpen, onClose, editingTransaction }) {
+  const [form, setForm] = useState(initialForm);
+
+  // Formani to'ldirish
+  useEffect(() => {
+    if (editingTransaction) {
+      setForm({
+        ...editingTransaction,
+        amount: Math.abs(Number(editingTransaction.amount))
+      });
+    } else {
+      setForm(initialForm);
+    }
+  }, [editingTransaction, isOpen]);
+
+  // Escape (Esc) tugmasi bosilganda yopilishi logikasi
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+
+    if (isOpen) {
+      window.addEventListener('keydown', handleKeyDown);
+    }
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isOpen, onClose]);
 
   if (!isOpen) return null;
 
+  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const uid = auth.currentUser?.uid;
+    if (!uid) return;
+
+    const amount = form.type === 'expense' ? -Math.abs(Number(form.amount)) : Math.abs(Number(form.amount));
+    const formattedCategory = form.category.trim().charAt(0).toUpperCase() + form.category.trim().slice(1);
+    
+    const finalData = { 
+      title: form.title.trim(),
+      category: formattedCategory,
+      amount,
+      date: form.date,
+      type: form.type,
+      updatedAt: serverTimestamp()
+    };
+
+    try {
+      if (editingTransaction?.id) {
+        const docRef = doc(db, "users", uid, "transactions", editingTransaction.id);
+        await updateDoc(docRef, finalData);
+      } else {
+        const colRef = collection(db, "users", uid, "transactions");
+        await addDoc(colRef, { ...finalData, createdAt: serverTimestamp() });
+      }
+      onClose(); // Muvaffaqiyatli qo'shilgach / yangilangach modalni yopish
+    } catch (err) {
+      console.error("Saqlashda xatolik:", err);
+    }
+  };
+
   return (
     <div className={styles.modalOverlay} onClick={onClose}>
-      <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
-        
-        {/* Header */}
+      <form className={styles.modalContent} onClick={e => e.stopPropagation()} onSubmit={handleSubmit}>
         <div className={styles.modalHeader}>
-          <h3>Yangi tranzaksiya</h3>
-          <button type="button" className={styles.closeBtn} onClick={onClose}>
-            {/* Toza X yopish belgisi */}
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-          </button>
+          <h3>{editingTransaction ? "Tahrirlash" : "Yangi tranzaksiya"}</h3>
+          <button type="button" className={styles.closeBtn} onClick={onClose}>×</button>
         </div>
 
-        {/* Form Body */}
         <div className={styles.modalBody}>
-          
-          {/* Nomi */}
           <div className={styles.inputGroup}>
             <label>Nomi</label>
-            <input type="text" placeholder="Masalan: Supermarket" />
+            <input type="text" name="title" value={form.title} onChange={handleChange} placeholder="Masalan: Supermarket" required />
           </div>
 
-          {/* Summa */}
           <div className={styles.inputGroup}>
-            <label>Summa (so'm)</label>
-            <input type="number" placeholder="0" defaultValue="0" />
+            <label>Summa</label>
+            <input type="number" name="amount" value={form.amount} onChange={handleChange} min="1" placeholder="0" required />
           </div>
 
-          {/* Kategoriya */}
           <div className={styles.inputGroup}>
             <label>Kategoriya</label>
-            <select defaultValue="">
-              <option value="" disabled hidden>Masalan: Ovqat</option>
-              <option value="ovqat">Ovqat</option>
-              <option value="transport">Transport</option>
-              <option value="tolovlar">To'lovlar</option>
-              <option value="kafe">Kafe</option>
-            </select>
+            <input type="text" name="category" value={form.category} onChange={handleChange} placeholder="Masalan: Ovqat" required />
           </div>
 
-          {/* Sana */}
           <div className={styles.inputGroup}>
             <label>Sana</label>
-            <input type="date" defaultValue={new Date().toISOString().split('T')[0]} />
+            <input type="date" name="date" value={form.date} onChange={handleChange} required />
           </div>
 
-          {/* Turi (Xarajat / Daromad) */}
           <div className={styles.inputGroup}>
             <label>Turi</label>
             <div className={styles.typeSelector}>
-              <button 
-                type="button" 
-                className={`${styles.typeBtn} ${styles.expenseBtn} ${type === 'expense' ? styles.activeExpense : ''}`}
-                onClick={() => setType('expense')}
-              >
-                {/* Qizil tepaga qaragan arrow */}
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
-                Xarajat
-              </button>
-              
-              <button 
-                type="button" 
-                className={`${styles.typeBtn} ${styles.incomeBtn} ${type === 'income' ? styles.activeIncome : ''}`}
-                onClick={() => setType('income')}
-              >
-                {/* Yashil pastga qaragan arrow */}
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="17" y1="7" x2="7" y2="17"></line><polyline points="17 17 7 17 7 7"></polyline></svg>
-                Daromad
-              </button>
+              {['expense', 'income'].map(t => (
+                <button 
+                  key={t} type="button" 
+                  className={`${styles.typeBtn} ${form.type === t ? styles[`active${t.charAt(0).toUpperCase() + t.slice(1)}`] : ''}`}
+                  onClick={() => setForm({ ...form, type: t })}
+                >
+                  {t === 'expense' ? (
+                    <><FiArrowUpRight className={styles.ic}/> Xarajat</>
+                  ) : (
+                    <><FiArrowDownRight className={styles.ic}/> Daromad</>
+                  )}
+                </button>
+              ))}
             </div>
           </div>
-
         </div>
 
-        {/* Action Buttons */}
         <div className={styles.modalActions}>
           <button type="button" className={styles.cancelBtn} onClick={onClose}>Bekor qilish</button>
-          <button type="button" className={styles.submitBtn}>Qo'shish</button>
+          <button type="submit" className={styles.submitBtn}>{editingTransaction ? "Yangilash" : "Qo'shish"}</button>
         </div>
-
-      </div>
+      </form>
     </div>
   );
 }

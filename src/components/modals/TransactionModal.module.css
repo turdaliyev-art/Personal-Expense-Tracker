@@ -113,7 +113,7 @@
   justify-content: center;
   gap: 0.8rem;
   padding: 1.2rem;
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   font-weight: 600;
   background-color: #ffffff;
   border: 0.1rem solid #e5e7eb;
@@ -121,6 +121,10 @@
   cursor: pointer;
   color: #374151;
   transition: all 0.2s ease;
+
+  .ic {
+    font-size: 2rem;
+  }
 }
 
 /* Xarajat tanlanganda (aktiv qizil holati) */
