@@ -386,7 +386,7 @@
   font-size: 1.6rem;
   font-weight: 600;
   line-height: 2.4rem;
-  color: var(text);
+  color: var(--text);
   margin: 0;
 }
 
