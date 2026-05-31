@@ -31,7 +31,7 @@ const Transaction = () => {
     }
   };
 
-  // Filtr va Qidiruv amallarini keshlashtirish
+
   const filteredTransactions = useMemo(() => {
     if (!transactions) return [];
     return transactions.filter(item => {
@@ -50,7 +50,7 @@ const Transaction = () => {
       </div>
 
       <TransactionModal isOpen={isModalOpen} onClose={() => { setIsModalOpen(false); setEditingTransaction(null); }} editingTransaction={editingTransaction} />
-      <DelConfirmModal isOpen={isDelModalOpen} onClose={() => { setIsDelModalOpen(false); setSelectedId(null); }} onConfirm={handleConfirmDelete} title="O'chirish" description="Tranzaksiyani o'chirasizmi?" />
+      <DelConfirmModal isOpen={isDelModalOpen} onClose={() => { setIsDelModalOpen(false); setSelectedId(null); }} onConfirm={handleConfirmDelete} title="Tranzaksiyani O'chirish" description="Tranzaksiyani o'chirasizmi?" />
 
       <div className={styles.trListContainer}>
         <div className={styles.catHdr}>

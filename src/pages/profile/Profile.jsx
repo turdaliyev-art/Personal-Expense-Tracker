@@ -21,7 +21,7 @@ const EyeInput = ({ value, onChange, placeholder }) => {
         style={{ width: '100%', paddingRight: '36px' }}
       />
       <span onClick={() => setShow(p => !p)} style={{ position: 'absolute', right: '10px', cursor: 'pointer', color: '#888', display: 'flex', alignItems: 'center' }}>
-        {show ? <FaRegEyeSlash /> : <FaRegEye />}
+        {show ? <FaRegEyeSlash className={styles.eyeIc}/> : <FaRegEye className={styles.eyeIc}/>}
       </span>
     </div>
   )
