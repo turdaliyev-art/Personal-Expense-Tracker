@@ -1,5 +1,6 @@
 .dashboard {
-    
+    width: 100%;
+
     .dshHdr {
         display: flex;
         align-items: center;
@@ -45,6 +46,7 @@
             border: 0.06rem solid #0000001A;
             border-radius: 1.4rem;
             box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1), 0px 1px 2px -1px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff;
 
             span {
                 font-size: 1.4rem;
@@ -66,8 +68,6 @@
                 font-size: 2.4rem;
                 line-height: 3.2rem;
                 color: var(--text);
-
-                
             }
 
             .income {
@@ -79,65 +79,60 @@
             }
 
             .text {
-                font-size: 1.2rem;
+                font-size: 1.2rem;  
                 line-height: 1.6rem;
                 font-weight: 400;
                 color: var(--gray);
                 margin-top: 0.45rem;
             }
-
         }
-
     }
 }
 
 .detailsContainer {
-  margin-top: 2.4rem;
-  display: flex;
-  gap: 2.4rem;
-  width: 100%;
-  box-sizing: border-box;
+    margin-top: 2.4rem;
+    display: flex;
+    gap: 2.4rem;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .transactionsCard,
 .categoriesCard {
-  flex: 1;
-  background-color: #ffffff;
-  border: 0.07rem solid #0000001A;
-  border-radius: 1.4rem;
-  padding: 2.4rem;
-box-shadow: 0 0.1rem 0.3rem rgba(0, 0, 0, 0.1), 0 0.1rem 0.2rem -0.1rem rgba(0, 0, 0, 0.1);
-
+    flex: 1;
+    background-color: #ffffff;
+    border: 0.07rem solid #0000001A;
+    border-radius: 1.4rem;
+    padding: 2.4rem;
+    box-shadow: 0 0.1rem 0.3rem rgba(0, 0, 0, 0.1), 0 0.1rem 0.2rem -0.1rem rgba(0, 0, 0, 0.1);
 }
 
 .cardHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  p {
-    font-size: 1.8rem;
-    line-height: 2.7rem;
-    font-weight: 500;
-    color: var(--text);
-  }
-  
-  .seeAllBtn {
-    background: none;
-    border: none;
-    color: var(--theme);
-    font-size: 1.4rem;
-    line-height: 2rem;
-    font-weight: 500;
-    cursor: pointer;
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 0.5rem;
-    font-weight: 500;
+
+    p {
+        font-size: 1.8rem;
+        line-height: 2.7rem;
+        font-weight: 500;
+        color: var(--text);
+    }
     
-  }
- 
+    .seeAllBtn {
+        background: none;
+        border: none;
+        color: var(--theme);
+        font-size: 1.4rem;
+        line-height: 2rem;
+        font-weight: 500;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
 }
+
 .transactionList {
     margin-top: 2.4rem;
     display: flex;
@@ -151,7 +146,7 @@ box-shadow: 0 0.1rem 0.3rem rgba(0, 0, 0, 0.1), 0 0.1rem 0.2rem -0.1rem rgba(0, 
     }
 
     .itemLeft {
-         display: flex;
+        display: flex;
         align-items: center;
         gap: 1.2rem;
     
@@ -163,9 +158,9 @@ box-shadow: 0 0.1rem 0.3rem rgba(0, 0, 0, 0.1), 0 0.1rem 0.2rem -0.1rem rgba(0, 
         }
     
         p {
-           font-size: 1.3rem;
-           color: #6b7280;
-           margin: 0;
+            font-size: 1.3rem;
+            color: #6b7280;
+            margin: 0;
         }
     }
 
@@ -178,6 +173,7 @@ box-shadow: 0 0.1rem 0.3rem rgba(0, 0, 0, 0.1), 0 0.1rem 0.2rem -0.1rem rgba(0, 
         justify-content: center;
         font-weight: bold;
         font-size: 1.6rem;
+        flex-shrink: 0;
     }
     
     .expense {
@@ -193,14 +189,14 @@ box-shadow: 0 0.1rem 0.3rem rgba(0, 0, 0, 0.1), 0 0.1rem 0.2rem -0.1rem rgba(0, 
     }
 }
 
-
 .itemRight {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
     gap: 0.2rem;
+    text-align: right;
+    margin-left: 1rem;
 }
-
 
 .date {
     font-size: 1.2rem;
@@ -212,9 +208,8 @@ box-shadow: 0 0.1rem 0.3rem rgba(0, 0, 0, 0.1), 0 0.1rem 0.2rem -0.1rem rgba(0, 
     font-weight: 600;
     line-height: 2.4rem;
     background: transparent !important;
+    white-space: nowrap;
 }
-
-
 
 .categoryList {
     margin-top: 2.4rem;
@@ -262,3 +257,103 @@ box-shadow: 0 0.1rem 0.3rem rgba(0, 0, 0, 0.1), 0 0.1rem 0.2rem -0.1rem rgba(0, 
     border-radius: 99.9rem;
     transition: width 0.3s ease;
 }
+
+.noData {
+    font-size: 1.4rem;
+    color: #9ca3af;
+    text-align: center;
+    padding: 2rem 0;
+}
+
+@media (max-width: 1200px) {
+    :global(html) {
+        font-size: 9.5px;
+    }
+}
+
+@media (max-width: 992px) {
+    :global(html) {
+        font-size: 9px;
+    }
+    
+       .dashboard {
+        
+        .financeCards {
+            grid-template-columns: repeat(2, 1fr); 
+            gap: 1.6rem;
+            
+            .card:first-child {
+                grid-column: span 2; 
+            }
+        }
+    
+    }
+    
+    .detailsContainer {
+        gap: 1.6rem;
+    }
+}
+
+@media (max-width: 768px) {
+    :global(html) {
+        font-size: 8.5px;
+    }
+    
+    
+    .detailsContainer {
+        flex-direction: column; 
+        gap: 2rem;
+    }
+}
+
+@media (max-width: 592px) {
+    :global(html) {
+        font-size: 8px;
+    }
+    
+    .dashboard {
+        .financeCards {
+            grid-template-columns: 1fr 1fr; 
+            
+            .card:first-child {
+                grid-column: span 2;
+            }
+        }
+    }
+}
+
+@media (max-width: 480px) {
+    :global(html) {
+        font-size: 7.5px;
+    }
+    
+    .transactionsCard,
+    .categoriesCard {
+        padding: 1.6rem; 
+    }
+    
+    .cardHeader {
+        .seeAllBtn {
+            font-size: 1.3rem;
+        }
+    }
+}
+
+
+@media (max-width: 400px) {
+    :global(html) {
+        font-size: 7px;
+    }
+
+   .dashboard {
+        .financeCards {
+            grid-template-columns:  1fr; 
+            
+            .card:first-child {
+                grid-column: span 1;
+            }
+        }
+    }
+    
+}
+

@@ -17,7 +17,6 @@ const Dashboard = () => {
     return () => { unsubTx(); unsubCat(); };
   }, []);
 
-  // Balans, Daromad va Xarajatni keshlab hisoblash (useMemo)
   const stats = useMemo(() => {
     let income = 0, expense = 0;
     transactions.forEach(tx => {
@@ -27,8 +26,7 @@ const Dashboard = () => {
     });
     return { income, expense, balance: income - expense };
   }, [transactions]);
-
-  // Kategoriyalar xarajatini hisoblash va keshlash
+  
   const { dynamicCategories, totalCategoryExpense } = useMemo(() => {
     const list = categories.map(cat => {
       const name = cat.name?.toLowerCase().trim();

@@ -2,11 +2,45 @@
     display: grid;
     grid-template-columns: 25.6rem 1fr;
     padding: 3.2rem;
+    width: 100%;
+    box-sizing: border-box;
     
     main {
         max-width: 150rem;
         margin: 0 auto;
         width: 100%;
+        box-sizing: border-box;
     }
 }
 
+@media (max-width: 1200px) {
+    .container {
+        padding: 2.4rem;
+    }
+}
+
+@media (max-width: 992px) {
+    .container {
+        grid-template-columns: 20rem 1fr;
+        padding: 2rem;
+        padding-left: 6rem;
+        gap: 1.6rem;
+        
+    }
+}
+
+
+@media (max-width: 768px) {
+    .container {
+        grid-template-columns: 1fr; 
+        padding: 1.6rem;
+        padding-top: 7rem; 
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 1.2rem;
+        padding-top: 6.5rem;
+    }
+}

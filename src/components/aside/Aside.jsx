@@ -1,29 +1,38 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import styles from "./Aside.module.css"
-import { TbWallet } from "react-icons/tb";
-import { TbLayoutDashboard } from "react-icons/tb";
-import { GoArrowSwitch } from "react-icons/go";
-import { RiFolderChartLine } from "react-icons/ri";
-import { FaRegChartBar } from "react-icons/fa";
-import { FiUser } from "react-icons/fi";
-import { links } from "../constants/data";
-
+import { TbWallet } from "react-icons/tb"
+import { IoMenu, IoClose } from "react-icons/io5"
+import { links } from "../constants/data"
 
 function Sidebar() {
+  const [isOpen, setIsOpen] = useState(false)
+
   return (
     <aside>
-      <div className={styles.asideContainer}>
+      <div className={styles.asideBurger} onClick={() => setIsOpen(true)}>
+        <IoMenu />
+      </div>
 
+      <div 
+        className={`${styles.overlay} ${isOpen ? styles.show : ""}`} 
+        onClick={() => setIsOpen(false)}
+      />
+
+      <div className={`${styles.asideContainer} ${isOpen ? styles.open : ""}`}>
         <div className={styles.asideHdr}>
-              <div className={styles.hdrLogo}>
-                  <TbWallet/>
-              </div>
-              <div>
-                  <p className={styles.asideHdrtext}>Xarajatlar</p>
-                  <p className={styles.asideDesc}>Boshqaruv tizimi</p>
-              </div>
+          <div className={styles.hdrLogo}>
+            <TbWallet/>
+          </div>
+          <div>
+            <p className={styles.asideHdrtext}>Xarajatlar</p>
+            <p className={styles.asideDesc}>Boshqaruv tizimi</p>
+          </div>
+          <div className={styles.closeIc} onClick={() => setIsOpen(false)}>
+            <IoClose />
+          </div>
         </div>
+        
         <ul>
           {links.map((link) => (
             <li key={link.title}>
@@ -31,6 +40,7 @@ function Sidebar() {
                 end
                 className={({ isActive }) => (isActive ? styles.active : "")}
                 to={link.path}
+                onClick={() => setIsOpen(false)}
               >
                 <span className={styles.asideIc}>{link.icon}</span>
                 {link.title}
@@ -38,19 +48,9 @@ function Sidebar() {
             </li>
           ))}
         </ul>
-
       </div>
     </aside>
   )
 }
 
 export default Sidebar
-
-/* 
- <ul>
-        <li><NavLink to="/"className={({ isActive }) => isActive ? styles.active : ""}><TbLayoutDashboard className={styles.asideIc}/>Dashboard</NavLink></li>
-        <li><NavLink to="/products"className={({ isActive }) => isActive ? styles.active : ""}><GoArrowSwitch className={styles.asideIc}/>Tranzaksiyalar</NavLink></li>
-        <li><NavLink to="/categories"className={({ isActive }) => isActive ? styles.active : ""}><RiFolderChartLine className={styles.asideIc}/>Kategoriyalar</NavLink></li>
-        <li><NavLink to="/Statistic"className={({ isActive }) => isActive ? styles.active : ""}><FaRegChartBar  className={styles.asideIc}/>Statistika</NavLink></li>
-        <li><NavLink to="/profile"className={({ isActive }) => isActive ? styles.active : ""}><x  className={styles.asideIc}/>Profil</NavLink></li>
-      </ul>*/

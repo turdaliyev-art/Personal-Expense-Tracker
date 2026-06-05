@@ -22,7 +22,6 @@ function Statistics() {
   const [transactions, setTransactions] = useState([]);
   const [categories, setCategories] = useState([]);
 
-  // Firebase real-time listenerlarni ulash
   useEffect(() => {
     const unsubscribeTx = subscribeToTransactions(setTransactions);
     const unsubscribeCat = subscribeToCategories(setCategories);
@@ -35,13 +34,21 @@ function Statistics() {
 
   const joriyYil = new Date().getFullYear();
 
-  // 1. Oylik Daromad va Xarajat tendensiyasini hisoblashni keshlashtirish
+  const xavfsizSana = (dateParam) => {
+    if (!dateParam) return null;
+    if (dateParam && typeof dateParam.toDate === 'function') {
+      return dateParam.toDate();
+    }
+    const d = new Date(dateParam);
+    return isNaN(d.getTime()) ? null : d;
+  };
+
   const lineData = useMemo(() => {
     const oylarQisqa = ['Yan', 'Fev', 'Mar', 'Apr', 'May', 'Iyun', 'Iyul', 'Avg', 'Sen', 'Okt', 'Noy', 'Dek'];
     return oylarQisqa.map((oyNom, index) => {
       const oyTx = transactions.filter(tx => {
-        const txSana = new Date(tx.date);
-        return txSana.getFullYear() === joriyYil && txSana.getMonth() === index;
+        const txSana = xavfsizSana(tx.date);
+        return txSana && txSana.getFullYear() === joriyYil && txSana.getMonth() === index;
       });
 
       const daromad = oyTx.filter(tx => tx.type === 'income').reduce((sum, tx) => sum + Number(tx.amount || 0), 0);
@@ -51,15 +58,12 @@ function Statistics() {
     });
   }, [transactions, joriyYil]);
 
-  // 2. Faqat xarajat tranzaksiyalarini keshlashtirish (filtr amallarini kamaytirish uchun)
   const xarajatTx = useMemo(() => transactions.filter(tx => tx.type === 'expense'), [transactions]);
 
-  // 3. Umumiy xarajat miqdorini keshlashtirish
   const umumiyXarajatMiyqdori = useMemo(() => {
     return xarajatTx.reduce((sum, tx) => sum + Math.abs(Number(tx.amount || 0)), 0);
   }, [xarajatTx]);
 
-  // 4. Kategoriyalar bo'yicha taqsimotni (PieChart) hisoblashni keshlashtirish
   const pieData = useMemo(() => {
     return categories.map(cat => {
       const catNameLower = cat.name?.toLowerCase().trim();
@@ -78,15 +82,15 @@ function Statistics() {
     }).filter(item => item.value > 0);
   }, [categories, xarajatTx, umumiyXarajatMiyqdori]);
 
-  // 5. Haftalik xarajatlarni (BarChart) hisoblashni keshlashtirish
   const barData = useMemo(() => {
-    const haftalar = ['Yak', 'Dush', 'Sesh', 'Chor', 'Pay', 'Juma', 'Shan'];
     const haftalarUz = ['Dush', 'Sesh', 'Chor', 'Pay', 'Juma', 'Shan', 'Yak'];
-    
-    return haftalarUz.map(kun => {
+    const jsDayMap = [6, 0, 1, 2, 3, 4, 5]; 
+
+    return haftalarUz.map((kun, kunIndex) => {
       const kunTx = xarajatTx.filter(tx => {
-        const txSana = new Date(tx.date);
-        return haftalar[txSana.getDay()] === kun;
+        const txSana = xavfsizSana(tx.date);
+        if (!txSana) return false;
+        return jsDayMap[txSana.getDay()] === kunIndex;
       });
 
       const jamiKunlik = kunTx.reduce((sum, tx) => sum + Math.abs(Number(tx.amount || 0)), 0);
@@ -94,7 +98,6 @@ function Statistics() {
     });
   }, [xarajatTx]);
 
-  // 6. Pastki kartalar (Summary Stats) uchun umumiy hisob-kitoblarni keshlashtirish
   const summaryStats = useMemo(() => {
     const jamiDaromad = transactions.filter(tx => tx.type === 'income').reduce((sum, tx) => sum + Number(tx.amount || 0), 0);
     const jamiXarajat = xarajatTx.reduce((sum, tx) => sum + Math.abs(Number(tx.amount || 0)), 0);

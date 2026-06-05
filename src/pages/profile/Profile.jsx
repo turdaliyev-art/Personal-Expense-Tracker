@@ -59,7 +59,6 @@ function Profile() {
           const data = docSnap.data()
           setPhone(data.phone || '')
           setAddress(data.address || '')
-          // Rasmni har safar sahifa yangilanganda Firestore'dan o'qiymiz
           setAvatar(data.avatar || user?.photoURL || null)
         } else {
           setAvatar(user?.photoURL || null)
@@ -103,7 +102,6 @@ function Profile() {
       setAvatar(base64Image)
       
       try {
-        // Rasmni Firestore bazasiga xavfsiz va doimiy saqlaymiz
         const docRef = doc(db, 'users', user.uid)
         await setDoc(docRef, { avatar: base64Image }, { merge: true })
         

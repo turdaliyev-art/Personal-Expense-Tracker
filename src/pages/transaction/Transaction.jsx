@@ -31,7 +31,6 @@ const Transaction = () => {
     }
   };
 
-
   const filteredTransactions = useMemo(() => {
     if (!transactions) return [];
     return transactions.filter(item => {
@@ -75,7 +74,7 @@ const Transaction = () => {
                 <div><p className={styles.title}>{item.title}</p><p>{item.category} <span>• <FiCalendar/> {item.date}</span></p></div>
               </div>
               <div className={styles.itemRight}>
-                <span className={`${styles.amount} ${styles[item.type]}`}>{item.amount > 0 ? '+' : '-'}{Math.abs(item.amount).toLocaleString()} so'm</span>
+                <span className={`${styles.amount} ${styles[item.type]}`}>{item.amount > 0 ? '+' : '-'}${Math.abs(item.amount).toLocaleString()} so'm</span>
                 <div className={styles.catActions}>
                   <button onClick={() => openEdit(item)}><GrEditIcon/></button>
                   <button onClick={() => openDelete(item.id)}><RiDeleteBin6Line/></button>

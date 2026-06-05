@@ -1,139 +1,166 @@
 .container {
-  width: 100%;
-  padding: 2.4rem;
-  box-sizing: border-box;
-  font-family: system-ui, -apple-system, sans-serif;
-  display: flex;
-  flex-direction: column;
-  gap: 2.4rem;
-}
-
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.pageTitle {
-  font-size: 2.8rem;
-  font-weight: 700;
-  color: #0f172a;
-  margin: 0 0 0.4rem 0;
-}
-
-.pageSubtitle {
-  font-size: 1.4rem;
-  color: #6b7280;
-  margin: 0;
-}
-
-.dateSelector {
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-  padding: 0.8rem 1.6rem;
-  background-color: #ffffff;
-  border: 0.1rem solid #e5e7eb;
-  border-radius: 1rem;
-  font-size: 1.4rem;
-  color: #374151;
-  font-weight: 500;
-}
-
-.mainChartCard {
-  width: 100%;
-  background-color: #ffffff;
-  border: 0.1rem solid #e5e7eb;
-  border-radius: 1.6rem;
-  padding: 2.4rem;
-  box-sizing: border-box;
-}
-
-.cardTitle {
-  font-size: 1.8rem;
-  font-weight: 500;
-  color: var(--text);
-  line-height: 2.7rem;
-  margin: 0 0 2rem 0;
-}
-
-.chartWrapper {
-  width: 100%;
-  height: 32rem;
-}
-
-.splitGrid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 2.4rem;
-}
-
-.gridCard {
-  background-color: #ffffff;
-  border: 0.08rem solid #0000001A;
-  border-radius: 1.6rem;
-  padding: 2.4rem;
-  box-sizing: border-box;
+    width: 100%;
   
-}
-
-
-.bottomSummaryGrid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    box-sizing: border-box;
+    font-family: system-ui, -apple-system, sans-serif;
+    display: flex;
+    flex-direction: column;
     gap: 2.4rem;
+
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .pageTitle {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin: 0 0 0.4rem 0;
+        }
+
+        .pageSubtitle {
+            font-size: 1.4rem;
+            color: #6b7280;
+            margin: 0;
+        }
+
+        .dateSelector {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 0.8rem 1.6rem;
+            background-color: #ffffff;
+            border: 0.1rem solid #e5e7eb;
+            border-radius: 1rem;
+            font-size: 1.4rem;
+            color: #374151;
+            font-weight: 500;
+        }
+    }
+
+    .mainChartCard {
+        width: 100%;
+        background-color: #ffffff;
+        border: 0.1rem solid #e5e7eb;
+        border-radius: 1.6rem;
+        padding: 2.4rem;
+        box-sizing: border-box;
+    }
+
+    .cardTitle {
+        font-size: 1.8rem;
+        font-weight: 500;
+        color: var(--text);
+        line-height: 2.7rem;
+        margin: 0 0 2rem 0;
+    }
+
+    .chartWrapper {
+        width: 100%;
+        height: 32rem;
+    }
+
+    .splitGrid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2.4rem;
+
+        .gridCard {
+            background-color: #ffffff;
+            border: 0.08rem solid #0000001A;
+            border-radius: 1.6rem;
+            padding: 2.4rem;
+            box-sizing: border-box;
+        }
+    }
+
+    .bottomSummaryGrid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 2.4rem;
+
+        .summaryCard {
+            border: 0.1rem solid #0000001A;
+            border-radius: 1.4rem;
+            padding: 2.4rem;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1), 0px 1px 2px -1px rgba(0, 0, 0, 0.1);
+
+            .summaryTop {
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-start;
+            }
+
+            .summaryLabel {
+                font-size: 1.4rem;
+                font-weight: 500;
+                line-height: 2rem;
+                color: var(--text);
+                margin: 0 0 0.7rem 0;
+            }
+
+            .summaryValue {
+                font-size: 2.2rem;
+                font-weight: 700;
+                color: #111827;
+                margin: 0;
+            }
+
+            .summaryIcon {
+                font-size: 2rem;
+                color: #9ca3af;
+
+                &.incomeIcon {
+                    color: #16a34a;
+                }
+
+                &.expenseIcon {
+                    color: #dc2626;
+                }
+            }
+
+            .summaryFooter {
+                font-size: 1.2rem;
+                color: var(--gray);
+                line-height: 1.6rem;
+                margin-top: .4rem;
+            }
+        }
+    }
 }
 
-.summaryCard {
-    border: 0.1rem solid 0000001A;
-  border-radius: 1.4rem;
-  padding: 2.4rem;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1), 0px 1px 2px -1px rgba(0, 0, 0, 0.1);
-
+@media (max-width: 1024px) {
+    .container {
+        .bottomSummaryGrid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
 }
 
-.summaryTop {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
+@media (max-width: 768px) {
+    .container {
+        padding: 1.6rem;
+
+        .splitGrid {
+            grid-template-columns: 1fr;
+        }
+
+    }
 }
 
-.summaryLabel {
-  font-size: 1.4rem;
-  font-weight: 500;
-  line-height: 2rem;
-  color: var(--text);
-  margin: 0 0 0.7rem 0;
+@media (max-width: 480px) {
+    .container {
+        .bottomSummaryGrid {
+            grid-template-columns: 1fr;
+        }
+        
+        .mainChartCard, .splitGrid .gridCard, .bottomSummaryGrid .summaryCard {
+            padding: 1.6rem;
+        }
+    }
 }
-
-.summaryValue {
-  font-size: 2.2rem;
-  font-weight: 700;
-  color: #111827;
-  margin: 0;
-}
-
-.summaryIcon {
-  font-size: 2rem;
-  color: #9ca3af;
-}
-
-.incomeIcon {
-  color: #16a34a;
-}
-
-.expenseIcon {
-  color: #dc2626;
-}
-
-.summaryFooter {
-  font-size: 1.2rem;
-  color: var(--gray);
-  line-height: 1.6rem;
-  margin-top: .4rem;
-}
-

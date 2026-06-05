@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react'
 import styles from './Categories.module.css'
 import { LuCar, LuGamepad2, LuShoppingCart, LuUtensils } from 'react-icons/lu'
-import { FiHome, FiCoffee, FiHeart, FiGift, FiBriefcase, FiSmartphone, FiBookOpen, FiX } from 'react-icons/fi'
+import { FiHome, FiCoffee, FiHeart, FiGift, FiBriefcase, FiSmartphone, FiBookOpen } from 'react-icons/fi'
 import { TbShirt } from 'react-icons/tb'
 import { RiDeleteBin6Line } from 'react-icons/ri'
 import { GrEdit } from 'react-icons/gr'
@@ -23,7 +23,6 @@ const Categories = () => {
   const [transactions, setTransactions] = useState([]) 
   const [selectedCategory, setSelectedCategory] = useState(null)
 
-  // Real-time listenerlarni bir marta o'rnatish
   useEffect(() => {
     const unsubscribeCat = subscribeToCategories(setCategories);
     const unsubscribeTx = subscribeToTransactions(setTransactions);
@@ -34,7 +33,6 @@ const Categories = () => {
     };
   }, [])
 
-  // Tranzaksiyalar soni, summasi va foiz ko'rsatkichlarini hisoblashni keshlashtirish
   const finalCategories = useMemo(() => {
     const calculated = categories.map(cat => {
       const catNameLower = cat.name?.toLowerCase().trim();
@@ -57,7 +55,6 @@ const Categories = () => {
     }));
   }, [categories, transactions]);
 
-  // Click funksiyalarini xotirada qayta yaratilishidan himoya qilish
   const handleEditClick = useCallback((e, cat) => {
     e.stopPropagation()
     setSelectedCategory(cat)
