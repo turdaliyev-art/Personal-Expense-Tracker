@@ -178,8 +178,6 @@
 
 @media (max-width: 768px) {
     .container {
-        padding: 1.6rem;
-
         .splitGrid {
             grid-template-columns: 1fr;
         }
@@ -190,6 +188,7 @@
     .container {
         .bottomSummaryGrid {
             grid-template-columns: 1fr;
+            padding: 1rem;
         }
         
         .mainChartCard, .splitGrid .gridCard, .bottomSummaryGrid .summaryCard {
