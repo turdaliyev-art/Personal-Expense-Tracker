@@ -14,22 +14,55 @@ html {
 }
 
 :root {
-  --text:#0A0A0A;
-  --gray:#717182;
+  --background: #f8fafc;
+  --card-bg: #ffffff;
+  --text: #0A0A0A;
+  --gray: #717182;
   --theme: #030213;
-  --green:#00A63E;
-  --green-2:#00C950;
-  --carrot-clr:#FF6900;
-  --carrot-clr-2:#FB2C36;
-  --red:#E7000B;
+  --green: #00A63E;
+  --green-2: #00C950;
+  --carrot-clr: #FF6900;
+  --carrot-clr-2: #FB2C36;
+  --red: #E7000B;
   --blue: #2B7FFF;
-  --violet:#AD46FF;
-  --pink:#F6339A;
-  --blue-2:#615FFF;
+  --violet: #AD46FF;
+  --pink: #F6339A;
+  --blue-2: #615FFF;
   --aqua: #00BBA7;
   --aqua-2: #00B8DB;
-  --gold-clr:#F0B100;
-  --gray-h-bg:#e9ebefc5;
+  --gold-clr: #F0B100;
+  --gray-h-bg: #e9ebefc5;
+  --border: #0000001A;
+  --input-bg: #f3f4f6;
+  --subcard-border: #f3f4f6;
+  --switch-bg: #717182;
+  --switch-active: #0A0A0A;
+  --badge-premium-bg: #eff6ff;
+  --badge-premium-text: #2563eb;
+  --badge-active-bg: #f0fdf4;
+}
+
+[data-theme="dark"] {
+  --background: #09090b;
+  --card-bg: #18181b;
+  --text: #f4f4f5;
+  --gray: #a1a1aa;
+  --theme: #2b7fff;
+  --gray-h-bg: #27272a;
+  --border: #27272a;
+  --input-bg: #27272a;
+  --subcard-border: #27272a;
+  --switch-bg: #3f3f46;
+  --switch-active: #2b7fff;
+  --badge-premium-bg: #1e3a8a;
+  --badge-premium-text: #93c5fd;
+  --badge-active-bg: #14532d;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--text);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 input {

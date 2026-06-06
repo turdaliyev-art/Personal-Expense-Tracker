@@ -121,13 +121,13 @@ const Signup = () => {
             </div>
           </label>
 
-          {error && <p style={{ color: 'red', fontSize: '13px', marginTop: '-8px' }}>{error}</p>}
+          {error && <p className={styles.errorMessage}>{error}</p>}
 
           <button onClick={handleSignup} disabled={loading}>
             {loading ? "Yuklanmoqda..." : "Ro'yxatdan o'tish"}
           </button>
 
-          <p>Hisobingiz bormi? <Link to="/">Kirish</Link></p>
+          <p className={styles.footerText}>Hisobingiz bormi? <Link to="/">Kirish</Link></p>
         </div>
       </div>
     </div>

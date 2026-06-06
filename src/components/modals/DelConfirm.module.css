@@ -4,61 +4,72 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.6);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1000;
+  padding: 1.6rem;
+  transition: background-color 0.3s ease;
 }
 
 .modalContent {
-  background-color: #ffffff;
+  background-color: var(--card-bg);
   width: 100%;
   max-width: 440px;
   border-radius: 1.6rem;
   padding: 2.4rem;
   box-sizing: border-box;
-  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.15);
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.2);
   font-family: system-ui, -apple-system, sans-serif;
+  border: 0.1rem solid var(--border);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .modalHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 3rem;
+  margin-bottom: 2.4rem;
 }
 
 .modalHeader h3 {
   font-size: 2rem;
   font-weight: 600;
   color: var(--text);
+  margin: 0;
+  transition: color 0.3s ease;
 }
 
 .closeBtn {
   background: none;
   border: none;
-  color: var(--theme);
+  color: var(--text);
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2rem;
+  font-size: 2.2rem;
+  padding: 0.4rem;
+  transition: color 0.3s ease;
 }
 
 .warningBox {
-  background-color: #d4183d15;
+  background-color: rgba(239, 68, 68, 0.15);
   border-radius: 1.2rem;
   padding: 1.6rem;
   display: flex;
   gap: 1.4rem;
   align-items: center;
   margin-bottom: 2.4rem;
+  border: 0.1rem solid rgba(239, 68, 68, 0.2);
 }
 
 .warningIcon {
-  color: #ef4444; 
+  color: var(--carrot-clr-2); 
   font-size: 2.4rem;
+  display: flex;
+  align-items: center;
 }
 
 .warningText {
@@ -72,6 +83,11 @@
   font-size: 1.45rem;
   color: var(--text);
   line-height: 1.4;
+  transition: color 0.3s ease;
+}
+
+.warningText p:last-child {
+  opacity: 0.7;
 }
 
 .modalActions {
@@ -81,35 +97,57 @@
 }
 
 .cancelBtn {
-  background-color: #ffffff;
-  border: 0.1rem solid #e5e7eb;
+  background-color: var(--background);
+  border: 0.1rem solid var(--border);
   color: var(--text);
   padding: 1.2rem;
   border-radius: 1rem;
   font-size: 1.6rem;
   font-weight: 600;
   cursor: pointer;
+  transition: all 0.2s ease;
 }
 
 .cancelBtn:hover {
-  background-color: #dedede;
+  background-color: var(--border);
 }
 
-
 .deleteBtn {
-  background-color: var(--theme);
-  border: 0.1rem solid var(--theme);
+  background-color: var(--carrot-clr-2);
+  border: 0.1rem solid var(--carrot-clr-2);
   color: #ffffff;
   padding: 1.2rem;
   border-radius: 1rem;
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   font-weight: 600;
   cursor: pointer;
-  transition: opacity 0.2s;
-  transition: all .3s ease;
+  transition: all 0.3s ease;
 }
 
 .deleteBtn:hover {
   background-color: transparent;
-  color: var(--text);
+  color: var(--carrot-clr-2);
+}
+
+@media (max-width: 480px) {
+  .modalOverlay {
+    padding: 1.2rem;
+  }
+  .modalContent {
+    max-width: 100%;
+    animation: slideUp 0.3s ease-out;
+  }
+  
+  .modalHeader {
+    margin-bottom: 2rem;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(100%);
+  }
 }

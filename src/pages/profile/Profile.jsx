@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { FiCamera, FiUser, FiMail, FiMapPin, FiLock, FiShield, FiCalendar, FiDollarSign, FiCreditCard, FiLogOut, FiActivity, FiBell, FiMoon } from 'react-icons/fi'
+import { FiCamera, FiUser, FiMail, FiMapPin, FiLock, FiShield, FiCalendar, FiDollarSign, FiCreditCard, FiLogOut, FiActivity, FiBell, FiMoon, FiSun } from 'react-icons/fi'
 import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa'
 import { FaArrowTrendUp } from 'react-icons/fa6'
 import styles from './Profile.module.css'
@@ -12,15 +12,14 @@ import { subscribeToTransactions } from '../../services/financeService'
 const EyeInput = ({ value, onChange, placeholder }) => {
   const [show, setShow] = useState(false)
   return (
-    <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
+    <div className={styles.eyeInputContainer}>
       <input
         type={show ? 'text' : 'password'}
         placeholder={placeholder}
         value={value}
         onChange={onChange}
-        style={{ width: '100%', paddingRight: '36px' }}
       />
-      <span onClick={() => setShow(p => !p)} style={{ position: 'absolute', right: '10px', cursor: 'pointer', color: '#888', display: 'flex', alignItems: 'center' }}>
+      <span onClick={() => setShow(p => !p)} className={styles.eyeIconWrapper}>
         {show ? <FaRegEyeSlash className={styles.eyeIc}/> : <FaRegEye className={styles.eyeIc}/>}
       </span>
     </div>
@@ -44,9 +43,38 @@ function Profile() {
 
   const [pushNotif, setPushNotif] = useState(true)
   const [emailNotif, setEmailNotif] = useState(false)
-  const [darkMode, setDarkMode] = useState(false)
+  
+  const [darkMode, setDarkMode] = useState(() => {
+    const savedTheme = localStorage.getItem('theme')
+    if (savedTheme) {
+      return savedTheme === 'dark'
+    }
+    return window.matchMedia('(prefers-color-scheme: dark)').matches
+  })
 
   const [stats, setStats] = useState({ totalCount: 0, income: 0, expense: 0 })
+
+  useEffect(() => {
+    if (darkMode) {
+      document.documentElement.setAttribute('data-theme', 'dark')
+      localStorage.setItem('theme', 'dark')
+    } else {
+      document.documentElement.setAttribute('data-theme', 'light')
+      localStorage.setItem('theme', 'light')
+    }
+  }, [darkMode])
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
+    const handleChange = (e) => {
+      if (!localStorage.getItem('theme')) {
+        setDarkMode(e.matches)
+      }
+    }
+    
+    mediaQuery.addEventListener('change', handleChange)
+    return () => mediaQuery.removeEventListener('change', handleChange)
+  }, [])
 
   useEffect(() => {
     if (!user) return
@@ -133,7 +161,7 @@ function Profile() {
     if (newPassword.length < 6) return setPasswordMsg("❌ Kamida 6 ta belgi!")
     try {
       await updatePassword(user, newPassword)
-      setPasswordMsg('✅ Parol yangilandi!')
+      setPasswordMsg('Parol yangilandi!')
       setOldPassword('')
       setNewPassword('')
       setTimeout(() => setPasswordMsg(''), 3000)
@@ -193,10 +221,10 @@ function Profile() {
               ].map(({ label, ...props }) => (
                 <div className={styles.inputGroup} key={label}>
                   <label>{label}</label>
-                  <input {...props} style={props.disabled ? { opacity: 0.6 } : {}} />
+                  <input {...props} className={props.disabled ? styles.disabledInput : ''} />
                 </div>
               ))}
-              {profileMsg && <p style={{ fontSize: '13px' }}>{profileMsg}</p>}
+              {profileMsg && <p className={styles.messageText}>{profileMsg}</p>}
               <button className={styles.saveBtn} onClick={handleSaveProfile}>O'zgarishlarni saqlash</button>
             </div>
           </div>
@@ -211,7 +239,7 @@ function Profile() {
               <div className={styles.passwordForm}>
                 <EyeInput value={oldPassword} onChange={e => setOldPassword(e.target.value)} placeholder="Eski parol" />
                 <EyeInput value={newPassword} onChange={e => setNewPassword(e.target.value)} placeholder="Yangi parol" />
-                {passwordMsg && <p style={{ fontSize: '13px' }}>{passwordMsg}</p>}
+                {passwordMsg && <p className={styles.messageText}>{passwordMsg}</p>}
                 <button className={styles.actionOutlineBtn} onClick={handleChangePassword}>Parolni yangilash</button>
               </div>
             </div>
@@ -222,7 +250,7 @@ function Profile() {
             {[
               { icon: <FiBell className={styles.settingIcon} />, title: 'Push bildirishnomalar', sub: 'Yangi xarajatlar haqida', on: pushNotif, toggle: () => setPushNotif(p => !p) },
               { icon: <FiMail className={styles.settingIcon} />, title: 'Email xabarnolar', sub: 'Haftalik hisobotlar', on: emailNotif, toggle: () => setEmailNotif(p => !p) },
-              { icon: <FiMoon className={styles.settingIcon} />, title: 'Tungi rejim', sub: "Qorong'i interfeys", on: darkMode, toggle: () => setDarkMode(p => !p) },
+              { icon: darkMode ? <FiSun className={styles.settingIcon} /> : <FiMoon className={styles.settingIcon} />, title: 'Tungi rejim', sub: "Qorong'i interfeys", on: darkMode, toggle: () => setDarkMode(p => !p) },
             ].map(({ icon, title, sub, on, toggle }) => (
               <div className={styles.settingRow} key={title}>
                 <div className={styles.settingInfo}>{icon}<div><h4>{title}</h4><p>{sub}</p></div></div>

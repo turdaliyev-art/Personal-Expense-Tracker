@@ -4,12 +4,13 @@ import { Outlet } from 'react-router-dom'
 import NetworkErr from '../components/modals/NetworkErr'
 
 
-const RoutesLayout = () => {
+const RoutesLayout = ({ darkMode, setDarkMode }) => {
   return (
     <div className={styles.container}>
-      <Aside/>
+      <Aside />
+      
       <main>
-        <Outlet/>
+        <Outlet context={{ darkMode, setDarkMode }} />
       </main>
 
       <NetworkErr />

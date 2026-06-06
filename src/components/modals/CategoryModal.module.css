@@ -4,20 +4,24 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: #00000080;
+  background-color: rgba(0, 0, 0, 0.6);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1000;
+  padding: 1.6rem;
+  transition: background-color 0.3s ease;
   
     .modalContent {
-        background-color: #ffffff;
+        background-color: var(--card-bg);
         width: 100%;
-        max-width: 440.8px;
+        max-width: 44rem;
         border-radius: 1.4rem;
         padding: 2.4rem;
-        box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.1);
+        box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.2);
         font-family: system-ui, -apple-system, sans-serif;
+        border: 0.1rem solid var(--border);
+        transition: background-color 0.3s ease, border-color 0.3s ease;
     }
 
     .modalHeader {
@@ -33,25 +37,27 @@
         line-height: 2.8rem;
         color: var(--text);
         margin: 0;
+        transition: color 0.3s ease;
     }
 
     .closeBtn {
         background: none;
         border: none;
-        font-size: 2rem;
-        color: #000000;
+        font-size: 2.2rem;
+        color: var(--text);
         cursor: pointer;
         display: flex;
         align-items: center;
         justify-content: center;
         padding: 0.4rem;
+        transition: color 0.3s ease;
     }
 
     .inputGroup {
         display: flex;
         flex-direction: column;
         gap: 0.8rem;
-        margin-top: 4.8rem;
+        margin-top: 2.4rem;
     }
 
     .inputGroup label, .sectionLabel {
@@ -59,26 +65,33 @@
         font-weight: 500;
         color: var(--text);
         line-height: 2rem;
+        transition: color 0.3s ease;
     }
 
     .inputGroup input {
         width: 100%;
         padding: 1.2rem 1.6rem;
         font-size: 1.5rem;
-        border: 0.1rem solid #e5e7eb;
+        border: 0.1rem solid var(--border);
         border-radius: 1rem;
-        background-color: #f9fafb;
+        background-color: var(--background);
         outline: none;
         box-sizing: border-box;
-        color: #111827;
+        color: var(--text);
+        transition: all 0.3s ease;
+    }
+
+    .inputGroup input:focus {
+        border-color: var(--theme);
     }
 
     .inputGroup input::placeholder {
-        color: #9ca3af;
+        color: var(--gray);
+        opacity: 0.7;
     }
 
     .section {
-        margin-top: 1.6rem;
+        margin-top: 2rem;
     }
 
     .iconGrid {
@@ -90,8 +103,8 @@
 
     .iconItem {
         height: 4.4rem;
-        background-color: #ffffff;
-        border: 0.1rem solid #e5e7eb;
+        background-color: var(--card-bg);
+        border: 0.1rem solid var(--border);
         border-radius: 1rem;
         font-size: 2rem;
         color: var(--text);
@@ -102,18 +115,23 @@
         transition: all 0.2s ease;
     }
 
+    .iconItem:hover {
+        border-color: var(--theme);
+        color: var(--theme);
+    }
+
     .activeIcon {
-        border-color: #000000;
-        background-color: #0302131A;
-        color: var(--text);
+        border-color: var(--theme);
+        background-color: var(--background);
+        color: var(--theme);
         border-width: 0.2rem;
     }
 
     .colorGrid {
         display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 1rem;
-    margin-top: 1.6rem;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 1rem;
+        margin-top: 0.8rem;
     }
 
     .colorItem {
@@ -126,8 +144,8 @@
     }
 
     .activeColor {
-    transform: scale(1.05);
-    box-shadow: 0 0 0 0.2rem #ffffff, 0 0 0 0.4rem #000000;
+        transform: scale(1.1);
+        box-shadow: 0 0 0 0.2rem var(--card-bg), 0 0 0 0.4rem var(--text);
     }
 
     .modalActions {
@@ -137,44 +155,74 @@
         margin-top: 3.2rem;
     
         button {
-            background-color: #ffffff;
-            border: 0.1rem solid #0000001A;
-            color: var(--text);
-            padding: .8rem;
+            border: 0.1rem solid var(--border);
+            padding: 1rem;
             border-radius: 1rem;
             font-size: 1.6rem;
             font-weight: 500;
             line-height: 2.4rem;
             cursor: pointer;
-        
+            transition: all 0.3s ease;
 
-            &:first-child {
-                &:hover {
-                    background-color: #d0d0d0d5;
-                }
-            }
-
-            &:last-child {
-                color: #ffffff;
-                background-color: var(--theme);
-
-                &:hover {
-                     background-color: #ffffff;
-                     color: var(--theme);
-                    border: 0.1rem solid var(--theme);
-                    transition: all .3s ease;
-
-                }
+            &:disabled {
+                opacity: 0.6;
+                cursor: not-allowed;
             }
         }
-        
-  
-    }
 
-    .cancelBtn:hover, .submitBtn:hover {
-    opacity: 0.9;
+        .cancelBtn {
+            background-color: var(--background);
+            color: var(--text);
+
+            &:hover {
+                background-color: var(--border);
+            }
+        }
+
+        .submitBtn {
+            color: #ffffff;
+            background-color: var(--theme);
+            border-color: var(--theme);
+
+            &:hover {
+                background-color: transparent;
+                color: var(--theme);
+                border-color: var(--theme);
+            }
+        }
     }
 }
 
+@media (max-width: 480px) {
+    .modalOverlay {
+        padding: 1.2rem;
+    }
 
+    .modalOverlay .modalContent {
+        max-width: 100%; 
+        animation: slideUp 0.3s ease-out;
+    }
 
+    .modalOverlay .iconGrid {
+        grid-template-columns: repeat(4, 1fr); 
+        gap: 1rem;
+    }
+
+    .modalOverlay .colorGrid {
+        grid-template-columns: repeat(5, 1fr);
+        gap: 1.2rem;
+    }
+    
+    .modalOverlay .inputGroup {
+        margin-top: 1.6rem;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        transform: scale(0);
+    }
+    to {
+        transform: scale(100%);
+    }
+}

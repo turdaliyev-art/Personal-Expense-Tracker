@@ -9,7 +9,6 @@ const initialForm = { title: '', amount: '', category: '', date: new Date().toIS
 function TransactionModal({ isOpen, onClose, editingTransaction }) {
   const [form, setForm] = useState(initialForm);
 
-  // Formani to'ldirish
   useEffect(() => {
     if (editingTransaction) {
       setForm({
@@ -21,7 +20,6 @@ function TransactionModal({ isOpen, onClose, editingTransaction }) {
     }
   }, [editingTransaction, isOpen]);
 
-  // Escape (Esc) tugmasi bosilganda yopilishi logikasi
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === 'Escape') {
@@ -67,7 +65,7 @@ function TransactionModal({ isOpen, onClose, editingTransaction }) {
         const colRef = collection(db, "users", uid, "transactions");
         await addDoc(colRef, { ...finalData, createdAt: serverTimestamp() });
       }
-      onClose(); // Muvaffaqiyatli qo'shilgach / yangilangach modalni yopish
+      onClose();
     } catch (err) {
       console.error("Saqlashda xatolik:", err);
     }

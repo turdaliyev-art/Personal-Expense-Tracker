@@ -10,62 +10,69 @@
   justify-content: center;
   align-items: center;
   z-index: 99999; 
+  padding: 1.6rem;
   animation: fadeIn 0.2s ease-out;
 }
 
 .modal {
-  background-color: var(--bg-card, #ffffff);
-  color: var(--text-color, #1f2937);
+  background-color: var(--card-bg);
+  color: var(--text);
   padding: 3rem;
-  border-radius: 16px;
+  border-radius: 1.6rem;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-  width: 90%;
+  width: 100%;
   max-width: 400px;
   text-align: center;
+  border: 0.1rem solid var(--border);
   animation: scaleIn 0.2s ease-out;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .iconCircle {
-  background-color: #fef2f2;
-  color: #ef4444;
-  width: 70px;
-  height: 70px;
+  background-color: rgba(239, 68, 68, 0.15);
+  color: var(--carrot-clr-2);
+  width: 7rem;
+  height: 7rem;
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 3.2rem;
   margin: 0 auto 2rem auto;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .title {
   font-size: 1.8rem;
   font-weight: 600;
   margin-bottom: 1rem;
+  transition: color 0.3s ease;
 }
 
 .description {
   font-size: 1.4rem;
-  color: #6b7280;
+  color: var(--gray);
   line-height: 1.5;
   margin-bottom: 2.5rem;
+  transition: color 0.3s ease;
 }
 
 .button {
-  background-color: #3b82f6;
+  background-color: var(--theme);
   color: white;
-  border: none;
+  border: 0.1rem solid var(--theme);
   padding: 1.2rem 2.5rem;
   font-size: 1.4rem;
   font-weight: 500;
-  border-radius: 8px;
+  border-radius: 1rem;
   cursor: pointer;
   width: 100%;
-  transition: background 0.2s;
+  transition: all 0.3s ease;
 }
 
 .button:hover {
-  background-color: #2563eb;
+  background-color: transparent;
+  color: var(--theme);
 }
 
 @keyframes fadeIn {
@@ -76,4 +83,27 @@
 @keyframes scaleIn {
   from { transform: scale(0.9); opacity: 0; }
   to { transform: scale(1); opacity: 1; }
+}
+
+@media (max-width: 480px) {
+  .overlay {
+    padding: 1.2rem;
+    
+  }
+
+  .modal {
+    max-width: 100%;
+    animation: slideUp 0.3s ease-out;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: scale(0);
+    opacity: 0;
+  }
+  to {
+    transform: scale(100%);
+    opacity: 1;
+  }
 }

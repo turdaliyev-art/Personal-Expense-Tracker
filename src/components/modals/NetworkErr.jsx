@@ -2,9 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { FiWifiOff } from 'react-icons/fi';
 import styles from './NetworkErr.module.css';
 
-
 const NetworkErr = () => {
-  
   const [isOffline, setIsOffline] = useState(!navigator.onLine);
 
   useEffect(() => {

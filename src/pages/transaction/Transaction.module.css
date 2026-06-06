@@ -13,6 +13,7 @@
             font-weight: 600;
             color: var(--text);
             letter-spacing: 0.04rem;
+            transition: color 0.3s ease;
         }
         
         .trDesc {
@@ -20,6 +21,7 @@
             font-weight: 400;
             line-height: 2.4rem;
             color: var(--gray);
+            transition: color 0.3s ease;
         }
         
         button {
@@ -54,13 +56,14 @@
         display: flex;
         flex-direction: column;
         gap: 2.4rem;
-        border: 1px solid #0000001A;
+        border: 1px solid var(--border);
         padding: 2.4rem;
         border-radius: 1.4rem;
         box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1), 0px 1px 2px -1px rgba(0, 0, 0, 0.1);
-        background-color: #ffffff;
+        background-color: var(--card-bg);
         width: 100%;
         box-sizing: border-box;
+        transition: background-color 0.3s ease, border-color 0.3s ease;
 
         .catHdr {
             display: flex;
@@ -68,29 +71,33 @@
             justify-content: space-between;
             gap: 1.6rem;
 
-            .search {   
+            .search { 
                 width: 100%;
                 max-width: 40rem;
-                border: 0.07rem solid #0000001A;
+                border: 0.07rem solid var(--border);
                 border-radius: 1rem;
                 overflow: hidden;
                 display: flex;
                 align-items: center;
                 padding-left: 1.2rem;
-                background: #F3F3F5;
+                background: var(--input-bg);
+                transition: background-color 0.3s ease, border-color 0.3s ease;
                 
                 .searchIc{
                     font-size: 1.6rem;
                     color: var(--gray);
                     flex-shrink: 0;
+                    transition: color 0.3s ease;
                 }
                 input {
-                    background: #F3F3F5;
+                    background: var(--input-bg);
+                    color: var(--text);
                     width: 100%;
                     border: none;
                     outline: none;
                     padding: 1.05rem 1.2rem;
                     font-size: 1.4rem;
+                    transition: background-color 0.3s ease, color 0.3s ease;
                 }
             }
 
@@ -106,7 +113,7 @@
                     font-size: 1.4rem;
                     line-height: 2rem;
                     font-weight: 500;
-                    background: #FFFFFF;
+                    background: var(--card-bg);
                     border: .1rem solid var(--theme);
                     color: var(--text);
                     transition: all .3s ease;
@@ -136,13 +143,14 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border: 0.07rem solid #0000001A;
+            border: 0.07rem solid var(--border);
             border-radius: 1rem;
             padding: 1.6rem;
             gap: 1.6rem;
-            background-color: #ffffff;
+            background-color: var(--card-bg);
             width: 100%;
             box-sizing: border-box;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
         }
         
         .itemLeft {
@@ -159,6 +167,7 @@
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
+                transition: color 0.3s ease;
             }
             
             div {
@@ -167,11 +176,12 @@
             
             p {
                 font-size: 1.3rem;
-                color: #6b7280;
+                color: var(--gray);
                 margin: 0;
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
+                transition: color 0.3s ease;
 
                 &:last-child {
                     display: flex;
@@ -201,14 +211,16 @@
         
         .expense {
             font-size: 2rem;
-            background-color: #FFE2E2;
+            background-color: rgba(231, 0, 11, 0.15); /* Var(--red) ning shaffof varianti tunda ham chiroyli turadi */
             color: var(--red);
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
         
         .income {
             font-size: 2rem;
-            background-color: #DCFCE7;
+            background-color: rgba(0, 166, 62, 0.15); /* Var(--green) ning shaffof varianti */
             color: var(--green);
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
     }
 
@@ -234,16 +246,16 @@
             align-items: center;
             justify-content: center;
             border-radius: 0.6rem;
-            transition: background-color 0.2s ease;
+            transition: background-color 0.2s ease, color 0.3s ease;
 
             &:hover {
-                background-color: #f3f4f6;
+                background-color: var(--gray-h-bg);
             }
 
             &:last-child {
                 color: var(--red);
                 &:hover {
-                    background-color: #fef2f2;
+                    background-color: rgba(231, 0, 11, 0.1);
                 }
             }
         }
@@ -259,11 +271,12 @@
 
     .noData {
         font-size: 1.6rem;
-        color: #9ca3af;
+        color: var(--gray);
         text-align: center;
         padding: 3rem 0;
         font-weight: 500;
         margin: 0;
+        transition: color 0.3s ease;
     }
 }
 
@@ -312,14 +325,6 @@
     :global(html) { font-size: 8px; }
     
     .transaction {
-        .trHdr {
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 1.6rem;
-            
-            button { width: 100%; justify-content: center; }
-        }
-
         .transactionList {
             .transactionItem {
                 flex-direction: column;
@@ -330,7 +335,7 @@
             .itemRight {
                 width: 100%;
                 justify-content: space-between;
-                border-top: 0.07rem solid #0000000d;
+                border-top: 0.07rem solid var(--border);
                 padding-top: 1rem;
                 gap: 1.2rem;
             }
@@ -342,6 +347,14 @@
     :global(html) { font-size: 7.5px; }
     
     .transaction {
+         .trHdr {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 1.6rem;
+            
+            button { width: 100%; justify-content: center; }
+        }
+
         .trListContainer {
             .catHdr {
                 .filterButtons {
