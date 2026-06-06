@@ -182,7 +182,6 @@
     .overlay { padding: 1.2rem; }
 }
 @media (max-width: 592px) {
-    :global(html) { font-size: 8px; }
     .login {
         max-width: 100%;
         border-radius: 1.2rem;
@@ -190,15 +189,15 @@
     }
 }
 @media (max-width: 480px) {
-    :global(html) { font-size: 7.5px; }
-    .login {
+        
+ .login {
         border: none;
         box-shadow: none;
-        background: transparent; 
-        padding: 0 1rem;
+        background: transparent;
+        padding: 0 1.2rem;
     }
 }
 @media (max-width: 320px) {
-    :global(html) { font-size: 7px; }
+    :global(html) { font-size: 8px; }
     .login { padding: 0; }
 }
